@@ -41,6 +41,14 @@ export VLC_PLUGIN_PATH="$SNAP_DESKTOP_RUNTIME/usr/lib/x86_64-linux-gnu/vlc/plugi
 # Ensure QtChooser behaves.
 export QTCHOOSER_NO_GLOBAL_DIR=1
 export QT_SELECT=5
+
+# shellcheck disable=SC2154
+if [ "$DESKTOP_SESSION" = "ubuntu-touch" ]; then
+  export QT_SCALE_FACTOR="$((GRID_UNIT_PX/8))"
+  export QT_IM_MODULE="maliitphablet"
+  export MOZ_USE_XINPUT2="1"
+fi
+
 # qtchooser hardcodes reference paths, we'll need to rewrite them properly
 ensure_dir_exists "$XDG_CONFIG_HOME/qtchooser"
 echo "$SNAP/usr/lib/qt5/bin" > "$XDG_CONFIG_HOME/qtchooser/5.conf"

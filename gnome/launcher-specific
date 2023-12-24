@@ -10,6 +10,14 @@ if [ "$wayland_available" = true ]; then
   # Does not hurt to specify this as well, just in case
   export QT_QPA_PLATFORM=wayland-egl
 fi
+
+# shellcheck disable=SC2154
+if [ "$DESKTOP_SESSION" = "ubuntu-touch" ]; then
+  export GDK_DPI_SCALE="$((GRID_UNIT_PX/8))"
+  export GTK_IM_MODULE="Maliit"
+  export MOZ_USE_XINPUT2="1"
+fi
+
 append_dir GTK_PATH "$SNAP_DESKTOP_RUNTIME/usr/lib/$ARCH/gtk-2.0"
 append_dir GTK_PATH "$SNAP_DESKTOP_RUNTIME/usr/lib/gtk-2.0"
 append_dir GTK_PATH "$SNAP_DESKTOP_RUNTIME/usr/lib/$ARCH/gtk-3.0"
